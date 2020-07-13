@@ -1,0 +1,111 @@
+<!--Search bar start-->
+<div class="container my-3">
+    <form class="searchbox" #f="ngForm" (ngSubmit)="onSubmit(f)">
+        <button class="btn-menu">
+            <img src="https://img.icons8.com/material-rounded/26/000000/marker.png"/>
+        </button>
+    
+        <input id="search" 
+        type="text" 
+        placeholder="Search..." 
+        name="search" 
+        class="search"
+        [(ngModel)]="cityName">
+    
+        <button  class="btn-search">
+            <img src="https://img.icons8.com/metro/26/000000/search.png"/>
+        </button>
+    </form>
+</div>
+
+<!--Search bar ends-->
+
+
+<!---5 6 days forecast report-->
+<div class="container weather">
+    <ul class="list-forecast">
+        <li *ngFor="let day of cityForecast">
+            <p class="font-weight-bold">{{day.day | date: "EE" }}</p>
+            <span>
+                <p class="font-weight-bold">{{day.minTemp | temperature: 'C'}}&deg;</p>
+                <p class="font-weight-light">{{day.maxTemp | temperature: 'C'}}&deg;</p>
+            </span>
+            <img src="http://openweathermap.org/img/w/{{day.icon}}.png" alt="">
+            <p class="font-weight-light">{{day.dayType}}</p>
+        </li>
+    </ul>
+</div>
+<!---5 6 days forecast report-->
+
+<!---Weather card start-->
+<div class="container mb-5">
+    <div class="today-report">
+        <div class="row temp-content">
+            <div class="col-3">
+                <h1 >{{currentWeather.temp | temperature: 'C'}}&deg;C</h1>
+            </div>
+            <div class="col-8">
+                <img class="sun-img" src="http://openweathermap.org/img/w/{{currentWeather.icon}}.png" alt="weather-icon">
+            </div>
+    
+        </div>
+    
+        <!--hourly data show with icon-->
+        <!-- <div class="row hourly-list">
+            <div *ngFor="let hour of hourlyData; let i = index" class="text-center"> 
+                <img src="http://openweathermap.org/img/w/{{hour.icon}}.png" alt="">
+                <p class="font-weight-bold">{{hour.temperature | temperature: 'C'}}&deg;C</p>
+                <p class="time">{{hour.time * 1000 | date: 'h:mm a' | lowercase}}</p>
+            </div>
+        </div> -->
+        <!--hourly data show-->
+
+        <!---Hourly data in chart start content-->
+        <div class="chart-wrapper">
+            <canvas baseChart 
+                [datasets]="lineChartData" 
+                [labels]="lineChartLabels" 
+                [options]="lineChartOptions"
+                [colors]="lineChartColors" 
+                [legend]="lineChartLegend" 
+                [chartType]="lineChartType" 
+                [plugins]="lineChartPlugins">
+            </canvas>
+        </div>
+        <!---Hourly data in chart ends-->
+    
+        <div class="row report-content">
+            <div class="col-6">
+                <div class="pressure"> 
+                    <h6>Pressure</h6>
+                    <p>{{ currentWeather.pressure }} hpa</p>
+                </div> 
+            </div>
+            <div class="col-6">
+                <div class="humidity">
+                    <h6>Humidity</h6>
+                    <p>{{ currentWeather.humidity }} %</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="row report-content">
+            <div class="col-6">
+                <div> 
+                    <h6>Sunset</h6>
+                    <p>{{ currentWeather.sunset * 1000 | date: 'h:mm a' | lowercase}}</p>
+                </div> 
+            </div>
+            <div class="col-6">
+                <div class="sunrise">
+                    <h6>Sunrise</h6>
+                    <p>{{ currentWeather.sunrise * 1000 | date: 'h:mm a' | lowercase}}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!---Weather card end-->
+
+<!--Loader-->
+<ngx-ui-loader></ngx-ui-loader>
