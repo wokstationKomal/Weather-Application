@@ -5,12 +5,7 @@
             <img src="https://img.icons8.com/material-rounded/26/000000/marker.png"/>
         </button>
     
-        <input id="search" 
-        type="text" 
-        placeholder="Search..." 
-        name="search" 
-        class="search"
-        [(ngModel)]="cityName">
+        <input id="search" type="text" placeholder="Search..." name="search" class="search" [(ngModel)]="cityName">
     
         <button  class="btn-search">
             <img src="https://img.icons8.com/metro/26/000000/search.png"/>
@@ -19,7 +14,6 @@
 </div>
 
 <!--Search bar ends-->
-
 
 <!---5 6 days forecast report-->
 <div class="container weather">
@@ -92,13 +86,13 @@
         <div class="row report-content">
             <div class="col-6">
                 <div> 
-                    <h6>Sunset</h6>
+                    <h6>Sunrise</h6>
                     <p>{{ currentWeather.sunset * 1000 | date: 'h:mm a' | lowercase}}</p>
                 </div> 
             </div>
             <div class="col-6">
                 <div class="sunrise">
-                    <h6>Sunrise</h6>
+                    <h6>Sunset</h6>
                     <p>{{ currentWeather.sunrise * 1000 | date: 'h:mm a' | lowercase}}</p>
                 </div>
             </div>

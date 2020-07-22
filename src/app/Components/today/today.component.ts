@@ -21,8 +21,11 @@ export class TodayComponent implements OnInit {
   cityForecast: Forecast[] = [];
   hourlyData: Hourly[] = [];
 
-  hourlyTemp: [] = [];
-  hourlyTime: [] = [];
+  hourlyTemp: number[] = [];
+  hourlyTime: string[] = [];
+
+  temporaryTemp: any;
+  temporaryTime: any;
 
   //chart starts
   lineChartData: ChartDataSets[] = [
@@ -66,21 +69,19 @@ export class TodayComponent implements OnInit {
     //forecast 5 days
     this.weatherService.forecastCurrentCity().then((data: Forecast[]) => {
       this.cityForecast = data;
-      // console.log("Forecast city:", data);
     })
 
     //hourly data show
     this.weatherService.hourlyForecast().then((data: Hourly[]) => {
       this.hourlyData = data;
-      console.log("Hourly data:", this.hourlyData);
       for(let i=0; i<=this.hourlyData.length; i++){
-        const temporaryTemp = Math.abs(this.hourlyData[i].temperature - 273.15);
-        const temporaryTime = new Date(this.hourlyData[i].time * 1000);
+        const temp = this.hourlyData[i].temperature;
+        const time = this.hourlyData[i].time;
+        this.temporaryTemp = (parseInt(temp) - 273.15).toFixed(0);
+        this.temporaryTime = new Date(parseInt(time)* 1000);
 
-        this.hourlyTemp.push(temporaryTemp);
-        this.hourlyTime.push(temporaryTime.getHours() + `:` + temporaryTime.getMinutes());
-
-        // console.log("Houlry Temp Show: Array", this.hourlyTime);
+        this.hourlyTemp.push(this.temporaryTemp);
+        this.hourlyTime.push(this.temporaryTime.getHours() + `:` + this.temporaryTime.getMinutes());
       }
     })
 
@@ -93,39 +94,20 @@ export class TodayComponent implements OnInit {
       this.ngxService.stop();
     }, 2000);
 
-    //current city weather card
-    this.cityName = f.form.value.search;
-    this.weatherService.searchCityWeather(this.cityName).subscribe((data: TodayWeather) =>{
-      
-      this.currentWeather = new TodayWeather(data.main.temp, 
-                                              data.weather[0].icon, 
-                                              '12', 
-                                              data.main.pressure, 
-                                              data.main.humidity, 
-                                              data.name, 
-                                              data.sys.sunrise, 
-                                              data.sys.sunset );
-    });
+    //Search city weather card
+      this.cityName = f.form.value.search;
+      document.querySelector('.msg').textContent = "";
+      this.weatherService.searchCityWeather(this.cityName)
+      .then((data: TodayWeather) => {
+        this.currentWeather = data;
+      });
 
-    //forecast list
-    this.weatherService.sixDayForecast(this.cityName).subscribe((data: Forecast[]) =>{
-      console.log("Forecats City search: ",data);
-      for(let i=0; i<data.list.length; i+=8){
-        const temporary = new Forecast(data.list[i].dt_txt,
-                                          data.list[i].main.temp_min,
-                                          data.list[i].main.temp_max,
-                                          data.list[i].weather[0].icon,
-                                          data.list[i].weather[0].main);
-        this.cityForecast.push(temporary);                                
-      }
-    })
+      //SEARCH CITY SIX DAYS forecast
+      this.weatherService.sixDayForecast(this.cityName).then((data: Forecast[]) => {
+        this.cityForecast = data;
+      })
 
-
-    // this.weatherService.searchCityHourly(this.cityName).subscribe((data: Hourly[]) =>{
-    //   console.log("Search city Hourly::",  data)
-    // })
 
   }
-
 }
 
