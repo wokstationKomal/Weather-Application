@@ -140,6 +140,7 @@ export class TodayComponent implements OnInit {
       this.weatherService.searchCityWeather(this.cityName)
       .then((data: TodayWeather) => {
         this.currentWeather = data;
+        this.icon = this.get_weatherIcon(this.currentWeather.icon,this.currentWeather.iconRange);
       });
 
       //SEARCH CITY SIX DAYS forecast
