@@ -2,59 +2,40 @@ h1{
     font-weight: bolder;
     font-size: 3.5rem;
 }
-
 /* search bar */
-
 button> img {
 	transition: transform .25s;
-}
-	
+}	
 button:hover > img {
 	transform:scale(1.2);
 }
-
 button:focus {
 	outline: none;
 }
-
 input {
-    font-family: 'Lexend Deca', sans-serif;
+    background: transparent;
 }
-
-input::placeholder{
-	font-family: 'Lexend Deca', sans-serif;
-}
-
 input:focus{
 	outline: none;
 }
-
-input:-internal-autofill-selected{
-    background-color: red!important;
-}
-
 .searchbox{
 	height: 60px;
 	width: 100%;
     max-width: 100%;
-    background: white;
     border-radius: 10px;
     display: flex;
     box-shadow:  0px 0px 9px 0px rgba(34, 34, 0, 0.75);
-}
-	
+}	
 .searchbox > .btn-menu {
 	padding: 16px;
 	background: transparent;
 	border: none;
 	cursor: pointer;
-}
-	
+}	
 .searchbox> .search{
 	border: none;
 	width: 100%;
-}
-	
+}	
 .searchbox > .btn-search {
 	padding: 16px;
 	background: transparent;
@@ -69,7 +50,6 @@ input:-internal-autofill-selected{
         padding: 0px 0px 20px 0px;
         margin-bottom: 20px;
     }
-
     canvas.chartjs-render-monitor {
         width: 1119px!important;
         height: 355px;
@@ -79,52 +59,40 @@ input:-internal-autofill-selected{
     .chart-wrapper{
         overflow-x: scroll;
         padding: 0px 0px 20px 0px;
-        /* margin-bottom: 20px!important; */
     }
     canvas.chartjs-render-monitor {
         height: 289px!important;
         width: 449px!important;
         }
 }
-
 /*chart*/
 
-
-
 /* weather card */
-
 .hourly-list{
     flex-wrap: initial;
     overflow-x: scroll;
     padding: 10px;
     margin: 0px;
 }
-
 .hourly-list>div{
     margin: 5px;
 }
-
 .hourly-list>div>.time{
     font-size: 12px;
 }
-
 .today-report{
-    background: white;
     border-radius: 10px;
     box-shadow:  0px 0px 9px 0px rgba(34, 34, 0, 0.75);
     padding: 13px;
 }
-
 .sun-img{
     height: 50px;
 }
-
 .temp-content, .report-content{
     display: inline-flex;
     width: 100%!important;
     padding: 20px 0px;
 }
-
 .pressure, .humidity{
     height: 60px;
     background-color: lightblue;
@@ -132,23 +100,27 @@ input:-internal-autofill-selected{
     text-align: left;
     padding: 10px;
 }
-
-.pressure>h6,p, .humidity>h6,p{
+.pressure>div>h6,p, .humidity>div>h6,p{
     margin: 0px;
+}
+.pressure, .humidity{
+    display: flex;
+}
+.pressure>div>img, .humidity>div>img{
+    height: 40px;
 }
 
 /* forscats report for 5 6 days  */
 .weather{
     overflow-x: scroll;
     margin-bottom: 20px;
+    padding: 0px;
 }
-
 .list-forecast{
     list-style: none;
     display: inline-flex;
     padding: 0px;
 }
-
 .list-forecast>li{
     display: grid;
     border-radius: 10px;
@@ -157,53 +129,41 @@ input:-internal-autofill-selected{
     padding: 5px;
     height: 125px;
 }
-
 .list-forecast>li:first-child{
     border: 3px solid lightblue;
     border-radius: 5px;
 }
-
 .list-forecast>li:focus{
     border: 1px solid lightblue!important;
 }
-
 .list-forecast>li>span{
     display: inline-flex;
     margin: 5px;
     text-align: center;
     margin: 0px;
-    /* background-color:  */
 }
-
 .list-forecast>li>span>p{
     width: 50%
 }
-
 .list-forecast>li>img{
     margin: 0 auto;
     height: 35px;
 }
-
 .list-forecast>li{
     width: 100px;
 }
-
 .sunrise{
     text-align: right;
 }
-
 @media screen and (min-width: 768px) {
     .list-forecast{
         width: 100%;
     }
-
     .list-forecast>li{
         width: 16%;
         margin: 20px;
     }
-
 }
-
 @media screen and (max-width: 425px) {
     .sun-img{
         margin-left: 70px;
@@ -212,7 +172,6 @@ input:-internal-autofill-selected{
 
 /*add a shadow to the scrollbar here*/
 ::-webkit-scrollbar-track {
-    /* -webkit-box-shadow: inset 0 0 0px red;  */
     -webkit-border-radius: 10px;
     border-radius: 10px;
 }
@@ -221,7 +180,6 @@ input:-internal-autofill-selected{
     ::-webkit-scrollbar {
         width: 8px;
         height: 2px;
-        /* -webkit-box-shadow: inset 0 0 6px red;  */
         -webkit-border-radius: 10px;
         border-radius: 10px;
     }
@@ -231,6 +189,5 @@ input:-internal-autofill-selected{
     border-radius: 10px;
     background:grey;
     height: 1px;
-}
-/*nobody needs this little scrollbar corner, I mean really, get rid of it haha*/  
+} 
 ::-webkit-scrollbar-corner       { display: none; height: 0px; width: 0px; }

@@ -22,7 +22,7 @@ export class WeatherService {
                 const lon = this.location.longitude;
                 return this.http.get<any>(`https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=85f1fe5bbc266e3d1380052a45c7ed51`)
                 .subscribe((data) =>{
-                        this.todayWeather = new TodayWeather(data.main.temp, data.weather[0].icon, '12', data.main.pressure, data.main.humidity, data.name, data.sys.sunrise, data.sys.sunset );
+                        this.todayWeather = new TodayWeather(data.main.temp, data.weather[0].icon, data.weather[0].id, data.main.pressure, data.main.humidity, data.name, data.sys.sunrise, data.sys.sunset );
                 res(this.todayWeather);
                 })
             })
@@ -34,18 +34,18 @@ export class WeatherService {
         return new Promise((res, req) => {
             navigator.geolocation.getCurrentPosition((pos) => {
                 this.location = pos.coords;
-                console.log(this.location)
                 const lat = this.location.latitude;
                 const lon = this.location.longitude;
                 return this.http.get<any>(`https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&appid=85f1fe5bbc266e3d1380052a45c7ed51`)
                 .subscribe((data) =>{
-                    console.log("SIX: ", data);
+                    console.log("ForecastCurrentCit: ", data);
                         for(let i=1; i<data.list.length; i+=8){
                             const temporary = new Forecast(data.list[i].dt_txt,
                                                               data.list[i].main.temp_min,
                                                               data.list[i].main.temp_max,
                                                               data.list[i].weather[0].icon,
-                                                              data.list[i].weather[0].main);
+                                                              data.list[i].weather[0].main,
+                                                              data.list[i].weather[0].id);
                             this.forecastDays.push(temporary);                                
                           }
                         
@@ -64,7 +64,8 @@ export class WeatherService {
             const lon = this.location.longitude;
             return this.http.get<any>(`https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=85f1fe5bbc266e3d1380052a45c7ed51`)
             .subscribe((data) =>{
-                    this.todayWeather = new TodayWeather(data.main.temp, data.weather[0].icon, '12', data.main.pressure, data.main.humidity, data.name, data.sys.sunrise, data.sys.sunset );
+                this.todayWeather = new TodayWeather(data.main.temp, data.weather[0].icon, data.weather[0].id, data.main.pressure, data.main.humidity, data.name, data.sys.sunrise, data.sys.sunset );
+
             res(this.todayWeather);
             },  (err) => document.querySelector('.msg').textContent = "Please search for a valid city 😩")
         })
@@ -83,7 +84,8 @@ export class WeatherService {
                                                               data.list[i].main.temp_min,
                                                               data.list[i].main.temp_max,
                                                               data.list[i].weather[0].icon,
-                                                              data.list[i].weather[0].main);
+                                                              data.list[i].weather[0].main,
+                                                              data.list[i].weather[0].id);
                             this.forecastDays.push(temporary);                                
                           }
                 res(this.forecastDays);
@@ -101,9 +103,9 @@ export class WeatherService {
                 return this.http.get<any>(`https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${lon}&
                 exclude={part}&appid=85f1fe5bbc266e3d1380052a45c7ed51`)
                 .subscribe((data) =>{
-                    console.log("Service hourly:", data);
                         for(let i=0; i<24; i++){
                             const temporary = new Hourly(data.hourly[i].weather[0].icon,
+                                                              data.hourly[i].weather[0].id,
                                                               data.hourly[i].temp,
                                                               data.hourly[i].dt);
                             this.hourlyData.push(temporary);                                

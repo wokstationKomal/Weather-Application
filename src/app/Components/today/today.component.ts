@@ -49,12 +49,26 @@ export class TodayComponent implements OnInit {
     },
   ];
 
-
   lineChartType = 'line';
 
-  //chart end s
+  //chart ends here
 
-  constructor(private ngxService: NgxUiLoaderService,private weatherService: WeatherService, private rsolve: ResolveLocationService) { }
+  //wethrIcon according to their iconRange
+  weatherIcon = {
+    "cloud": "cloud",
+    "thunderstorm": "thunderstorm",
+    "rain": "rain",
+    "snow": "snow",
+    "clear": "sun",
+    "atmosphere": "smog",
+    "drizzle": "drizzle"
+  };
+
+  icon: String = '';
+
+  constructor(private ngxService: NgxUiLoaderService,
+              private weatherService: WeatherService, 
+              private rsolve: ResolveLocationService) { }
 
   ngOnInit() {
     //loader
@@ -64,8 +78,9 @@ export class TodayComponent implements OnInit {
 
     this.weatherService.localWeather().then((data: TodayWeather) => {
       this.currentWeather = data;
+      this.icon = this.get_weatherIcon(this.currentWeather.icon,this.currentWeather.iconRange);
     });
-
+    
     //forecast 5 days
     this.weatherService.forecastCurrentCity().then((data: Forecast[]) => {
       this.cityForecast = data;
@@ -84,8 +99,33 @@ export class TodayComponent implements OnInit {
         this.hourlyTime.push(this.temporaryTime.getHours() + `:` + this.temporaryTime.getMinutes());
       }
     })
+  }
 
-    // console.log("Houlry Temp Show: Array", this.hourlyTemp);
+  //setting up icns according to theird iconRange
+  get_weatherIcon(icons, weatherRange){
+    switch(true){
+      case weatherRange >= 200 && weatherRange<=232:
+      icons=this.weatherIcon.thunderstorm
+      break;
+      case weatherRange >= 300 && weatherRange<=321:
+      icons=this.weatherIcon.drizzle
+      break;
+      case weatherRange >= 500 && weatherRange<=531:
+      icons=this.weatherIcon.rain
+      break;
+      case weatherRange >= 600 && weatherRange<=622:
+      icons=this.weatherIcon.snow
+      break;
+      case weatherRange >= 700 && weatherRange<=781:
+      icons=this.weatherIcon.atmosphere
+      break;
+      case weatherRange == 800:
+      icons=this.weatherIcon.clear
+      break;
+      default:
+      icons=this.weatherIcon.cloud
+    }
+    return icons;
   }
 
   onSubmit(f) {
@@ -106,8 +146,6 @@ export class TodayComponent implements OnInit {
       this.weatherService.sixDayForecast(this.cityName).then((data: Forecast[]) => {
         this.cityForecast = data;
       })
-
-
   }
 }
 

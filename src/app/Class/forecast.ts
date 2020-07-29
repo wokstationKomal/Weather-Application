@@ -3,5 +3,6 @@ export class Forecast {
                 public minTemp: string,
                 public maxTemp: string,
                 public icon: string,
-                public dayType: string){}
+                public dayType: string,
+                public iconRange: number){}
 }
