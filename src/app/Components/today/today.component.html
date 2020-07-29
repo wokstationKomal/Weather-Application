@@ -40,10 +40,10 @@
 <div class="container mb-5">
     <div class="today-report">
         <div class="row temp-content">
-            <div class="col-3">
+            <div class="col-3 col-lg-2">
                 <h1 >{{currentWeather.temp | temperature: 'C'}}&deg;C</h1>
             </div>
-            <div class="col-8">
+            <div class="col-9 col-lg-10">
                 <img class="sun-img" src="assets/Images/{{icon}}.png" alt="weather">
             </div>
         </div>
@@ -75,10 +75,10 @@
         <div class="row report-content">
             <div class="col-lg-6 col-md-6 col-12 my-2">
                 <div class="pressure">  
-                    <div class="col-3">
+                    <div class="col-3 col-lg-2">
                         <img src="assets/Images/pressure.png" alt="pressure">
                     </div>
-                    <div class="col-8">
+                    <div class="col-8 col-lg-8">
                         <h6>Pressure</h6>
                         <p>{{ currentWeather.pressure }} hpa</p>
                     </div>
@@ -86,10 +86,10 @@
             </div>
             <div class="col-lg-6 col-md-6 col-12 my-2">
                 <div class="humidity">
-                    <div class="col-3">
+                    <div class="col-3 col-lg-2">
                         <img src="assets/Images/humidity.png" alt="humidity">
                     </div>
-                    <div class="col-8">
+                    <div class="col-8 col-lg-8">
                         <h6>Humidity</h6>
                         <p>{{ currentWeather.humidity }} %</p>
                     </div>

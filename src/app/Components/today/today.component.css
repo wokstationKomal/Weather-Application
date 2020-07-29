@@ -86,7 +86,7 @@ input:focus{
     padding: 13px;
 }
 .sun-img{
-    height: 50px;
+    height: 80px;
 }
 .temp-content, .report-content{
     display: inline-flex;

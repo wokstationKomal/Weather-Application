@@ -74,11 +74,12 @@ export class WeatherService {
 
     //SEARCH CITY SIX DAYS DATA
     sixDayForecast(city: string){
-        this.forecastDays = [];
+        // this.forecastDays = [];
         return new Promise((res, req) => {
             navigator.geolocation.getCurrentPosition((pos) => {
                 return this.http.get<any>(`https://api.openweathermap.org/data/2.5/forecast?q=${city}&appid=85f1fe5bbc266e3d1380052a45c7ed51`)
                 .subscribe((data) =>{
+                    this.forecastDays = [];
                         for(let i=1; i<data.list.length; i+=8){
                             const temporary = new Forecast(data.list[i].dt_txt,
                                                               data.list[i].main.temp_min,
